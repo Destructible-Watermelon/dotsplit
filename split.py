@@ -4,6 +4,7 @@ stack=[]
 program=[i for i in input().split()]
 pop=lambda:stack.pop() if stack else 0
 # commands that can't be lambdas
+tape,tape_index=[0],0
 def hop():
     global i
     if pop():
@@ -19,6 +20,19 @@ def quote():
     global i; i+=1
     print(program[i], end='')
 
+def delete():
+    del program[i]
+
+def tape_left():
+    global tape_index
+    if tape_index==0:
+        tape.insert(0,0)
+    else: tape_index-=1
+def tape_right():
+    global tape_index
+    if tape_index==len(tape)-1:
+        tape.append(0)
+    tape_index+=1
 commands={
     "five":          lambda: stack.append(5),
     "five-negative": lambda: stack.append(-5),
@@ -33,6 +47,9 @@ commands={
     "quote":         quote,
     "spaced-out":    lambda: print(" ", end=""),
     "newline":       lambda: print(),
+    "delete":        delete,
+    "tape-right":    tape_right,
+    "tape-left":     tape_left,
     }
 i=0
 while i<len(program):
