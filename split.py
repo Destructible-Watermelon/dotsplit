@@ -35,7 +35,8 @@ commands={
 	"newline":       lambda: print(),
 	}
 
-i = 0; while i < len(program):
+i = 0
+while i < len(program):
 	commands.get(program[i].lower(), lambda:None)()
 	i += 1
 
