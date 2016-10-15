@@ -35,8 +35,9 @@ commands={
 	"newline":       lambda: print(),
 	}
 
-for i in range(len(program)):
+i = 0; while i < len(program):
 	commands.get(program[i].lower(), lambda:None)()
+	i += 1
 
 if stack:
 	print(' '.join(str(i) for i in stack))
