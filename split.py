@@ -6,6 +6,7 @@ pop=lambda:stack.pop() if stack else 0
 for command in program: #the part that will be the most extended
     {
         "five":         lambda: stack.append(5),
+        "five-unary":    lambda: (stack.append(0)for i in range(5)),
         "divide":       lambda: stack.append(pop()//pop()),
         "add":          lambda: stack.append(pop()+pop()),
         "derp":         lambda: print("Derp" if input()=="derp" else "Nope"),
