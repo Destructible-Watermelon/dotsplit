@@ -36,10 +36,14 @@ def jump():
 
 def quote():
     global i; i += 1
-    print(program[i], end='')
+    print(program[i%len(program)], end='')
 
 def delete():
     del program[i]
+
+def delete_stay():
+    delete()
+    global i;i-=1
 
 def tape_left():
     global tape_index
@@ -52,11 +56,13 @@ def tape_right():
         tape.append(0)
     tape_index+=1
 
+
+
 commands={
     "five":          lambda: stack.push(5),
     "five-negative": lambda: stack.push(-5),
     "five-unary":    lambda: (stack.push(0)for i in range(5)),
-    "divide":        lambda: stack.push(stack.pop()//stack.pop()),
+    "divide":        lambda x=stack.pop(),y=stack.pop(): stack.push(x//y if y!=0 else 42),
     "add":           lambda: stack.push(stack.pop()+stack.pop()),
     "derp":          lambda: print("Derp" if input() == "derp" else "Nope"),
     "derp-nocase":   lambda: print("Derp" if input().lower() == "derp" else "Nope"),
@@ -67,9 +73,11 @@ commands={
     "spaced-out":    lambda: print(" ", end=""),
     "newline":       lambda: print(),
     "delete":        delete,
+    "delete-stay":   delete_stay,
     "tape-right":    tape_right,
     "tape-left":     tape_left,
     "better-indents":better_indents,
+
     }
 
 i = 0
